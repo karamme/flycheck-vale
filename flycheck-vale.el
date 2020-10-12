@@ -128,11 +128,14 @@ passing the results to CALLBACK."
     (erase-buffer))
 
   (let* ((process-connection-type nil)
+         (flycheck-vale-current-extension (file-name-extension (buffer-file-name) t))
          (proc (start-process "flycheck-vale-process"
                               flycheck-vale-output-buffer
                               flycheck-vale-program
                               "--output"
-                              "JSON")))
+                              "JSON"
+                              "--ext"
+                              flycheck-vale-current-extension)))
     (let ((checker checker)
           (callback callback)
           (buf (current-buffer)))
